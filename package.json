@@ -1,6 +1,6 @@
 {
   "name": "ahwa",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "fourdusk",
   "type": "module",
   "main": "./dist/main.js",
@@ -13,12 +13,12 @@
   "exports": {
     ".": {
       "require": {
-        "types": "./dist/main.d.ts",
-        "default": "./dist/main.js"
+        "types": "./dist/main.d.cts",
+        "default": "./dist/main.cjs"
       },
       "import": {
         "types": "./dist/main.d.ts",
-        "default": "./dist/main.mjs"
+        "default": "./dist/main.js"
       }
     }
   },
