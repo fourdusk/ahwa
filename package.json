@@ -1,0 +1,45 @@
+{
+  "name": "ahwa",
+  "version": "0.0.1",
+  "author": "fourdusk",
+  "type": "module",
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "types": "./dist/main.d.ts",
+  "files": ["dist", "package.json", "README.md"],
+  "keywords": ["ahwa", "tiny", "helper", "tool"],
+  "description": "One tiny helper tool",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/main.d.ts",
+        "default": "./dist/main.js"
+      },
+      "import": {
+        "types": "./dist/main.d.ts",
+        "default": "./dist/main.mjs"
+      }
+    }
+  },
+  "scripts": {
+    "prepare": "husky",
+    "prepublishOnly": "pnpm run build",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "type:check": "tsc --noEmit --skipLibCheck",
+    "lint": "pnpm type:check && biome check --write .",
+    "lint-staged": "lint-staged --config ./lint-staged.config.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/types": "^19.5.0",
+    "@types/node": "^22.7.6",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3"
+  }
+}
