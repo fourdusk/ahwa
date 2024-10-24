@@ -15,7 +15,8 @@
     "rules": {
       "all": true,
       "suspicious": {
-        "noConsole": "error"
+        "noConsole": "error",
+        "noExplicitAny": "off"
       },
       "correctness": {
         "useImportExtensions": "off"

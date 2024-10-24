@@ -1,8 +1,14 @@
-export const treeToList = <T extends Record<string | number, unknown>>(
+import { isEmpty } from '@/check/index'
+import type { TreeNode } from './types'
+
+export const treeToList = <
+  T extends Record<string | number, unknown>,
+  C extends keyof T
+>(
   tree: T[] = [],
-  props = { childrenKey: 'children', isDepthFirst: true }
+  props?: { childrenKey?: C; isDepthFirst?: boolean }
 ) => {
-  const { childrenKey, isDepthFirst } = props
+  const { childrenKey = 'children', isDepthFirst = true } = props ?? {}
   const stack = tree.slice()
   const result: T[] = []
   while (stack.length > 0) {
@@ -23,42 +29,56 @@ export const treeToList = <T extends Record<string | number, unknown>>(
 }
 
 export const listToTree = <
-  T extends {
-    [key: string | number]: unknown
-  }
+  T extends Record<number | string, any>,
+  K extends keyof T & (number | string),
+  C extends number | string = 'children'
 >(
-  list: T[] = [],
-  props = { parentId: 'parentId', childrenId: 'id', childrenKey: 'children' }
-) => {
-  const { parentId, childrenId, childrenKey } = props
-  const result = [] as (
-    | T
-    | {
-        [K in typeof childrenKey]: T
-      }
-  )[]
-  const pIdMap: {
-    [key: number | string]: T
+  list: T[],
+  props?: {
+    parentId?: K
+    id?: K
+    childrenKey?: C
+    judgeParentIdFn?: (item: T) => boolean
+  }
+): TreeNode<T, C>[] => {
+  const {
+    parentId = 'parentId',
+    id = 'id',
+    childrenKey = 'children',
+    judgeParentIdFn = (item: T) => isEmpty(item[parentId])
+  } = props ?? {}
+  const result: TreeNode<T, C>[] = []
+  const idMap: {
+    [key: number | string]: TreeNode<T, C>
   } = {}
 
   for (const item of list) {
-    pIdMap[item[childrenId] as string | number] = item
+    idMap[item[id]] = { ...item, [childrenKey]: [] }
   }
 
   for (const item of list) {
-    if (item[parentId]) {
-      const mapIem = pIdMap[item[parentId] as string | number] as {
-        [key: number | string]: T[]
-      }
-      if (Array.isArray(mapIem[childrenKey])) {
-        mapIem[childrenKey].push(pIdMap[item[childrenId] as string | number])
-      } else {
-        mapIem[childrenKey] = [pIdMap[item[childrenId] as string | number]]
-      }
+    const pId = item[parentId]
+    const cId = item[id]
+    if (judgeParentIdFn(item)) {
+      result.push(idMap[cId] as TreeNode<T, C>)
     } else {
-      result.push(pIdMap[item[childrenId] as string | number])
+      const mapItem = idMap[pId]
+      mapItem[childrenKey].push(idMap[cId])
     }
   }
 
   return result
+}
+
+export const deduplicateArray = <
+  T extends Record<number | string, any>,
+  K extends keyof T
+>(
+  arr: T[],
+  prop: K
+) => {
+  const uniqueItems: T[] = []
+  return arr.filter(item => {
+    return !uniqueItems.includes(item[prop]) && uniqueItems.push(item[prop])
+  })
 }
