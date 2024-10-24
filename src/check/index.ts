@@ -62,7 +62,7 @@ export const isDate = (val: unknown): val is Date => {
   return isType(val, 'Date')
 }
 
-export const isEmpty = (val: unknown): val is null | undefined | string => {
+export const isEmpty = (val: unknown): val is null | undefined | '' => {
   return isNullOrUndefined(val) || (isString(val) && val.trim() === '')
 }
 
