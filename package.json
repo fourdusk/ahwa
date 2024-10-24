@@ -7,9 +7,14 @@
   "module": "./dist/main.mjs",
   "types": "./dist/main.d.ts",
   "files": ["dist", "package.json", "README.md"],
-  "keywords": ["ahwa", "tiny", "helper", "tool"],
+  "keywords": ["ahwa", "tiny", "helper", "tool", "typescript"],
   "description": "One tiny helper tool",
   "license": "MIT",
+  "bugs": "https://github.com/javionlog/ahwa/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javionlog/ahwa.git"
+  },
   "exports": {
     ".": {
       "require": {
