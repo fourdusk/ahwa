@@ -1,6 +1,6 @@
 {
   "name": "ahwa",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "author": "javionlog",
   "type": "module",
   "main": "./dist/main.js",
@@ -32,6 +32,8 @@
     "prepublishOnly": "pnpm run build",
     "dev": "tsup --watch",
     "build": "tsup",
+    "test": "vitest run",
+    "test:dev": "vitest dev",
     "type:check": "tsc --noEmit --skipLibCheck",
     "lint": "pnpm type:check && biome check --write .",
     "lint-staged": "lint-staged --config ./lint-staged.config.js"
@@ -45,6 +47,7 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "tsup": "^8.3.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
   }
 }

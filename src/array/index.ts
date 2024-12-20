@@ -1,7 +1,15 @@
 import { isEmpty } from '@/check/index'
 import type { TreeNode } from './types'
 
-export const treeToList = <
+/**
+ * Flattens a tree structure into a flat list.
+ *
+ * @template T - The type of the objects in the tree.
+ * @param {T[]} tree - An array representing the tree structure.
+ * @param {{ childrenKey?: keyof T; isDepthFirst?: boolean }} [props] - Optional properties to customize the conversion.
+ * @returns {T[]} - A flat array of objects from the tree.
+ */
+export const flattenTree = <
   T extends Record<string | number, unknown>,
   C extends keyof T
 >(
@@ -28,7 +36,15 @@ export const treeToList = <
   return result
 }
 
-export const listToTree = <
+/**
+ * Builds a tree structure from a flat list.
+ *
+ * @template T - The type of the objects in the list.
+ * @param {T[]} list - An array representing the flat list.
+ * @param {{ parentId?: keyof T; id?: keyof T; childrenKey?: string; judgeParentIdFn?: (item: T) => boolean }} [props] - Optional properties to customize the conversion.
+ * @returns {TreeNode<T, string>[]} - A tree structure represented as an array of nodes.
+ */
+export const buildTree = <
   T extends Record<number | string, any>,
   K extends keyof T & (number | string),
   C extends number | string = 'children'
@@ -70,7 +86,15 @@ export const listToTree = <
   return result
 }
 
-export const deduplicateArray = <
+/**
+ * Returns a new array with unique objects based on a specified property.
+ *
+ * @template T - The type of the objects in the array.
+ * @param {T[]} arr - An array of objects from which duplicates will be removed.
+ * @param {keyof T} prop - The property used to determine uniqueness.
+ * @returns {T[]} - A new array with duplicates removed.
+ */
+export const uniqueArray = <
   T extends Record<number | string, any>,
   K extends keyof T
 >(

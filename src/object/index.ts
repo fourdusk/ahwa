@@ -1,4 +1,13 @@
-export const pickObject = <
+/**
+ * Picks specified properties from an object.
+ *
+ * @template T - The type of the object from which properties will be picked.
+ * @template K - The type of the keys to be picked.
+ * @param {T} obj - The object from which to pick properties.
+ * @param {K[]} keys - An array of keys representing the properties to pick.
+ * @returns {Pick<T, K>} - A new object containing only the picked properties.
+ */
+export const pickProperties = <
   T extends Record<PropertyKey, unknown>,
   K extends keyof T
 >(
@@ -10,7 +19,16 @@ export const pickObject = <
   ) as Pick<T, K>
 }
 
-export const omitObject = <
+/**
+ * Omits specified properties from an object.
+ *
+ * @template T - The type of the object from which properties will be omitted.
+ * @template K - The type of the keys to be omitted.
+ * @param {T} obj - The object from which to omit properties.
+ * @param {K[]} keys - An array of keys representing the properties to omit.
+ * @returns {Omit<T, K>} - A new object containing all properties except the omitted ones.
+ */
+export const omitProperties = <
   T extends Record<PropertyKey, unknown>,
   K extends keyof T
 >(
