@@ -7,7 +7,7 @@
  * @param {K[]} keys - An array of keys representing the properties to pick.
  * @returns {Pick<T, K>} - A new object containing only the picked properties.
  */
-export const pickProperties = <
+export const pickProps = <
   T extends Record<PropertyKey, unknown>,
   K extends keyof T
 >(
@@ -28,7 +28,7 @@ export const pickProperties = <
  * @param {K[]} keys - An array of keys representing the properties to omit.
  * @returns {Omit<T, K>} - A new object containing all properties except the omitted ones.
  */
-export const omitProperties = <
+export const omitProps = <
   T extends Record<PropertyKey, unknown>,
   K extends keyof T
 >(
